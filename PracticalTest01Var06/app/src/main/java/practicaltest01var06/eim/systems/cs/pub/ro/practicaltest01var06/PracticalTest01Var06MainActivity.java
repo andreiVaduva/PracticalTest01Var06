@@ -1,10 +1,14 @@
 package practicaltest01var06.eim.systems.cs.pub.ro.practicaltest01var06;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +25,7 @@ public class PracticalTest01Var06MainActivity extends AppCompatActivity {
 
     private LinearLayout web_linear_layout = null;
 
+    private IntentFilter intentFilter = new IntentFilter();
 
 
     private final static int SECONDARY_ACTIVITY_REQUEST_CODE = 1;
@@ -96,6 +101,10 @@ public class PracticalTest01Var06MainActivity extends AppCompatActivity {
             }
         });
 
+        for (int index = 0; index < Constants.actionTypes.length; index++) {
+            intentFilter.addAction(Constants.actionTypes[index]);
+        }
+
         web_linear_layout = (LinearLayout)findViewById(R.id.web_linear_layout);
 
         details_button = (Button)findViewById(R.id.details_button);
@@ -134,6 +143,29 @@ public class PracticalTest01Var06MainActivity extends AppCompatActivity {
             Toast.makeText(this, "The activity returned with result " + resultCode, Toast.LENGTH_LONG).show();
         }
     }
+
+
+    private MessageBroadcastReceiver messageBroadcastReceiver = new MessageBroadcastReceiver();
+    private class MessageBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.d("[Message]", intent.getStringExtra("message"));
+        }
+    }
+
+//    @Overrideride
+//    protected void onResume() {
+//        super.onResume();
+//        registerReceiver(messageBroadcastReceiver, intentFilter);
+//    }
+//
+//    @Override
+//    protected void onPause() {
+//        unregisterReceiver(messageBroadcastReceiver);
+//        super.onPause();
+//    }
+
+
 
 
     @Override
