@@ -1,5 +1,6 @@
 package practicaltest01var06.eim.systems.cs.pub.ro.practicaltest01var06;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +17,29 @@ public class PracticalTest01Var06MainActivity extends AppCompatActivity {
     private Button navigate_to_secondary_activity_button = null;
 
     private LinearLayout web_linear_layout = null;
+
+
+    private final static int SECONDARY_ACTIVITY_REQUEST_CODE = 1;
+
+    private Button navigateToSecondaryActivityButton = null;
+
+    private ButtonClickListener buttonClickListener = new ButtonClickListener();
+    private class ButtonClickListener implements Button.OnClickListener {
+
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.navigate_to_secondary_activity_button:
+                    Intent intent = new Intent(getApplicationContext(), PracticalTest01Var06SecondaryActivity.class);
+//                    int numberOfClicks = Integer.parseInt(leftEditText.getText().toString()) +
+//                            Integer.parseInt(rightEditText.getText().toString());
+                    String webString = web_edit_text.getText().toString();
+                    intent.putExtra("numberOfClicks", webString);
+                    startActivityForResult(intent, SECONDARY_ACTIVITY_REQUEST_CODE);
+                    break;
+            }
+        }
+    }
 
     private ShowButtonClickListener showButtonClickListener = new ShowButtonClickListener();
     private class ShowButtonClickListener implements View.OnClickListener {
@@ -47,6 +71,7 @@ public class PracticalTest01Var06MainActivity extends AppCompatActivity {
 
         validate_button = (Button)findViewById(R.id.validate_button);
         navigate_to_secondary_activity_button = (Button)findViewById(R.id.navigate_to_secondary_activity_button);
+        navigate_to_secondary_activity_button.setOnClickListener(buttonClickListener);
     }
 
 
