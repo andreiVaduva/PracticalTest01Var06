@@ -38,11 +38,11 @@ public class PracticalTest01Var06SecondaryActivity extends AppCompatActivity {
         first_text_view = (TextView)findViewById(R.id.first_text_view);
         second_text_view = (TextView)findViewById(R.id.second_text_view);
 
-//        Intent intent = getIntent();
-//        if (intent != null && intent.getExtras().containsKey("numberOfClicks")) {
-//            int numberOfClicks = intent.getIntExtra("numberOfClicks", -1);
-//            numberOfClicksTextView.setText(String.valueOf(numberOfClicks));
-//        }
+        Intent intent = getIntent();
+        if (intent != null && intent.getExtras().containsKey("webEditText")) {
+            String webAddr = intent.getStringExtra("webEditText");
+            first_text_view.setText(webAddr);
+        }
 
         okButton = (Button)findViewById(R.id.ok_button);
         okButton.setOnClickListener(buttonClickListener);

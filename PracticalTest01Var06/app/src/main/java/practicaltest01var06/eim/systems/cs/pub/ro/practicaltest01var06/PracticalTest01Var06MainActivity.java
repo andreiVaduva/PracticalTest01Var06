@@ -3,10 +3,13 @@ package practicaltest01var06.eim.systems.cs.pub.ro.practicaltest01var06;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 public class PracticalTest01Var06MainActivity extends AppCompatActivity {
 
@@ -19,10 +22,9 @@ public class PracticalTest01Var06MainActivity extends AppCompatActivity {
     private LinearLayout web_linear_layout = null;
 
 
+
     private final static int SECONDARY_ACTIVITY_REQUEST_CODE = 1;
-
     private Button navigateToSecondaryActivityButton = null;
-
     private ButtonClickListener buttonClickListener = new ButtonClickListener();
     private class ButtonClickListener implements Button.OnClickListener {
 
@@ -34,7 +36,7 @@ public class PracticalTest01Var06MainActivity extends AppCompatActivity {
 //                    int numberOfClicks = Integer.parseInt(leftEditText.getText().toString()) +
 //                            Integer.parseInt(rightEditText.getText().toString());
                     String webString = web_edit_text.getText().toString();
-                    intent.putExtra("numberOfClicks", webString);
+                    intent.putExtra("webEditText", webString);
                     startActivityForResult(intent, SECONDARY_ACTIVITY_REQUEST_CODE);
                     break;
             }
@@ -64,6 +66,27 @@ public class PracticalTest01Var06MainActivity extends AppCompatActivity {
 
         upper_edit_text = (EditText)findViewById(R.id.upper_edit_text);
         web_edit_text = (EditText)findViewById(R.id.web_edit_text);
+        web_edit_text.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                if(s.toString().startsWith("http")) {
+                    validate_button.setBackground(getApplicationContext().getResources().getDrawable(R.color.green));
+                    validate_button.setText(getApplicationContext().getResources().getText(R.string.pass));
+                }
+            }
+        });
+
         web_linear_layout = (LinearLayout)findViewById(R.id.web_linear_layout);
 
         details_button = (Button)findViewById(R.id.details_button);
@@ -92,6 +115,14 @@ public class PracticalTest01Var06MainActivity extends AppCompatActivity {
             web_edit_text.setText(savedInstanceState.getString("webEditText"));
         } else {
             web_edit_text.setText(String.valueOf(0));
+        }
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        if (requestCode == SECONDARY_ACTIVITY_REQUEST_CODE) {
+            Toast.makeText(this, "The activity returned with result " + resultCode, Toast.LENGTH_LONG).show();
         }
     }
 }

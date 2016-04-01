@@ -2,4 +2,5 @@
     <string name="app_name">PracticalTest01Var06</string>
     <string name="more_details">More details</string>
     <string name="fail">Fail</string>
+    <string name="pass">Pass</string>
 </resources>
