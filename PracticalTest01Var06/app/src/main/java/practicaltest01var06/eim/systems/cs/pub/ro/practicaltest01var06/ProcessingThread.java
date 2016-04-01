@@ -36,14 +36,14 @@ public class ProcessingThread extends Thread {
 
     private void sendMessage() {
         Intent intent = new Intent();
-//        intent.setAction(Constants.actionTypes[random.nextInt(Constants.actionTypes.length)]);
+        intent.setAction(Constants.actionTypes[random.nextInt(Constants.actionTypes.length)]);
         intent.putExtra("message", new Date(System.currentTimeMillis()) + " " + webAddress);
         context.sendBroadcast(intent);
     }
 
     private void sleep() {
         try {
-            Thread.sleep(10000);
+            Thread.sleep(5000);
         } catch (InterruptedException interruptedException) {
             interruptedException.printStackTrace();
         }

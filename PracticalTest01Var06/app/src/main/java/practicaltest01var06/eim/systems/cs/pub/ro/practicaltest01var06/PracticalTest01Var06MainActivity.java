@@ -97,6 +97,9 @@ public class PracticalTest01Var06MainActivity extends AppCompatActivity {
                         getApplicationContext().startService(intent);
                         serviceStatus = Constants.SERVICE_STARTED;
                     }
+                } else {
+                    validate_button.setBackground(getApplicationContext().getResources().getDrawable(R.color.red));
+                    validate_button.setText(getApplicationContext().getResources().getText(R.string.fail));
                 }
             }
         });
@@ -153,17 +156,17 @@ public class PracticalTest01Var06MainActivity extends AppCompatActivity {
         }
     }
 
-//    @Overrideride
-//    protected void onResume() {
-//        super.onResume();
-//        registerReceiver(messageBroadcastReceiver, intentFilter);
-//    }
-//
-//    @Override
-//    protected void onPause() {
-//        unregisterReceiver(messageBroadcastReceiver);
-//        super.onPause();
-//    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(messageBroadcastReceiver, intentFilter);
+    }
+
+    @Override
+    protected void onPause() {
+        unregisterReceiver(messageBroadcastReceiver);
+        super.onPause();
+    }
 
 
 
