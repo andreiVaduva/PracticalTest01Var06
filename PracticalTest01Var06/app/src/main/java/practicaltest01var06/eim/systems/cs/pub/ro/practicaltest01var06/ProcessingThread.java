@@ -17,14 +17,11 @@ public class ProcessingThread extends Thread {
 
     private Random random = new Random();
 
-    private double am;
-    private double gm;
+    String webAddress;
 
-    public ProcessingThread(Context context, int firstNumber, int secondNumber) {
+    public ProcessingThread(Context context, String webAddress) {
         this.context = context;
-
-        am = (firstNumber + secondNumber) / 2;
-        gm = Math.sqrt(firstNumber * secondNumber);
+        this.webAddress = webAddress;
     }
 
     @Override
@@ -40,7 +37,7 @@ public class ProcessingThread extends Thread {
     private void sendMessage() {
         Intent intent = new Intent();
 //        intent.setAction(Constants.actionTypes[random.nextInt(Constants.actionTypes.length)]);
-        intent.putExtra("message", new Date(System.currentTimeMillis()) + " " + am + " " + gm);
+        intent.putExtra("message", new Date(System.currentTimeMillis()) + " " + webAddress);
         context.sendBroadcast(intent);
     }
 

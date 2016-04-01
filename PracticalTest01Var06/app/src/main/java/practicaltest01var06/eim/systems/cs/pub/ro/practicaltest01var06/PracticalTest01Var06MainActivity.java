@@ -59,6 +59,8 @@ public class PracticalTest01Var06MainActivity extends AppCompatActivity {
         }
     }
 
+
+    int serviceStatus = Constants.SERVICE_STOPPED;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +85,13 @@ public class PracticalTest01Var06MainActivity extends AppCompatActivity {
                 if(s.toString().startsWith("http")) {
                     validate_button.setBackground(getApplicationContext().getResources().getDrawable(R.color.green));
                     validate_button.setText(getApplicationContext().getResources().getText(R.string.pass));
+
+                    if (serviceStatus == Constants.SERVICE_STOPPED) {
+                        Intent intent = new Intent(getApplicationContext(), PracticalTest01Var06Service.class);
+                        intent.putExtra("webAddress", web_edit_text.getText().toString());
+                        getApplicationContext().startService(intent);
+                        serviceStatus = Constants.SERVICE_STARTED;
+                    }
                 }
             }
         });
@@ -124,5 +133,13 @@ public class PracticalTest01Var06MainActivity extends AppCompatActivity {
         if (requestCode == SECONDARY_ACTIVITY_REQUEST_CODE) {
             Toast.makeText(this, "The activity returned with result " + resultCode, Toast.LENGTH_LONG).show();
         }
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        Intent intent = new Intent(this, PracticalTest01Var06Service.class);
+        stopService(intent);
+        super.onDestroy();
     }
 }

@@ -13,10 +13,9 @@ public class PracticalTest01Var06Service extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        int firstNumber = intent.getIntExtra("firstNumber", -1);
-        int secondNumber = intent.getIntExtra("secondNumber", -1);
+        String webAddress = intent.getStringExtra("webAddress");
 
-        processingThread = new ProcessingThread(this, firstNumber, secondNumber);
+        processingThread = new ProcessingThread(this, webAddress);
         processingThread.start();
 
         return Service.START_REDELIVER_INTENT;
